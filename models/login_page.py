@@ -19,8 +19,8 @@ class LoginPage:
     async def submit_button(self):
         await self.page.click("button:has-text(\"Log in\")")
     
-    async def navigate(self,website):
-        await self.page.goto(website)
+    # async def navigate(self,website):
+    #     await self.page.goto(website)
         
     async def submit_login_form(self, user):
         await self.email_field(user["username"])

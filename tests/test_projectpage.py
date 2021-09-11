@@ -5,67 +5,54 @@ import pytest
 import unittest
 
 from asyncio.runners import run
+from models import login_page
+from models import projects_page
 sys.path.insert(0,'..')
 
-from models.login import LoginPage
+from models.login_page import LoginPage
 from models.projects_page import Projectpage
+from helper.login_action import StoreCookie
 
 import asyncio
 from playwright.async_api import Cookie, async_playwright
 from helper.login_action import StoreCookie
+from helper.create_project import ProjectCreation
 
-# in the test
-# async def main():
-#     async with async_playwright() as p:
-#         browser = await p.firefox.launch(headless=False)
-#         context = await browser.new_context()
-#         page = await context.new_page()
-#         login_page = LoginPage(page)
-#         project_page = Projectpage(page)
-#         await login_page.navigate("https://stage.lokalise.com/login")
-#         await login_page.submit_login_form(user)
-#         await project_page.new_project()
-#         storage = await context.storage_state(path="state.json")
-#         print(storage)
-#         f = open("cookies.json","a")
-#         f.write(storage)
 
 user = {
         "username": "mrityunjeyan@sequoia.com",
         "password": "jeyy1988"
         }
+name = {
+    "project1": "automation"
+}
+environment = {
+    "stage" : "https://stage.lokalise.com"
+}
+endpoint = {
+    "project_dashboard": "/projects",
+    "login_dashboard": "/login"
+}
 
 
-
-# class TestNewProject(object):
-#     @pytest.fixture(scope='class')
-#     def cookie(self):
-#         fetch_cookie = StoreCookie()
-#         fetch_cookie.user_login(user)
-#     # async def main():
-#     #     async with async_playwright() as p:
-#     #         browser = await p.firefox.launch(headless=False)
-#     #         context = await browser.new_context()
-#     #         page = await context.new_page()
-#     #         login_page = LoginPage(page)
-#     #         project_page = Projectpage(page)
-#     #         await login_page.navigate("https://stage.lokalise.com/login")
-#     #         await login_page.submit_login_form(user)
-#     #         await project_page.new_project()
-#     #         storage = await context.storage_state(path="state.json")
-#     #         print(storage)
-#     #         f = open("cookies.json","a")
-#     #         f.write(storage)
+class Tests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        print(1)
+        login_user = StoreCookie()
+        login_user.user_login(user)
+        
+    def test_add_new_project(self):
+        project_creation = ProjectCreation()
+        project_creation.create_project(name,environment["stage"] + endpoint["project_dashboard"],"ownerUser.json")
+        
+    def test_verify_creation_in_dashboard(self):
+        projects_page = ProjectCreation()
+        projects_page.validate_existence(name["project1"],environment["stage"] + endpoint["project_dashboard"],"ownerUser.json")
+        
 
         
 
-#     def test_new_project_creation(self):
-#         self.test_new_project_creation
-class Tests(unittest.TestCase):
-    @classmethod
-    def setUpClass(self):
-        fetch_cookie = StoreCookie()
-        fetch_cookie.user_login(user)
 
-    def test_add_new_project(self):
-        self.test_add_new_project
+    
+        
