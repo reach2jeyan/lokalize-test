@@ -1,0 +1,26 @@
+{
+  "data": {
+    "credentials": {
+      "username": "mrityunjeyan@sequoia.com",
+      "password": "jeyy1988"
+
+    },
+    "projectNames":{
+      "firstProject": "automation",
+      "secondProject": "playwright"
+    },
+    "environment": {
+      "stage" : "https://stage.lokalise.com"
+    },
+    "translation": {
+      "firstKey": "translatedtext"
+    },
+    "keyName": {
+      "firstKey":"python",
+      "secondKey": "pytest"
+    },
+    "platform":{
+      "iOS": "iOS"
+    }
+  }
+}
