@@ -72,7 +72,7 @@ class Projects:
         return visibility
 
     def verify_key_added(self):
-        visibility = self.added_key.is_visible()
+        visibility = self.translation_key().is_visible()
         return visibility
 
 
